@@ -2,9 +2,12 @@
 
 const express = require('express');
 const mongoose = require('mongoose');
+const authRoutes = require('./routes/authRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 5000; // Define your preferred port
+
+app.use(express.json());
 
 // Connect to MongoDB
 mongoose.connect('mongodb://localhost:27017/my-jobhunt-db', {
@@ -15,7 +18,7 @@ mongoose.connect('mongodb://localhost:27017/my-jobhunt-db', {
 .catch(err => console.error('MongoDB connection error:', err));
 
 // Define routes
-// Example: app.use('/api/users', require('./routes/users'));
+app.use('/auth', authRoutes);
 
 // Start the server
 app.listen(PORT, () => {
